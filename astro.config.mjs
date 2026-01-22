@@ -8,7 +8,9 @@ export default defineConfig({
   site: 'https://example.com', // Update with your custom domain
   integrations: [
     mdx(),
-    tailwind(),
+    tailwind({
+      applyBaseStyles: false,
+    }),
   ],
   markdown: {
     shikiConfig: {
