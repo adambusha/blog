@@ -53,17 +53,17 @@
 ## Phase 2: Theming & Base Styles
 
 ### Tasks
-- [ ] Create `src/styles/global.css`
+- [x] Create `src/styles/global.css`
   - Define CSS custom properties for light theme
   - Define CSS custom properties for dark theme
   - Set up `@font-face` rules for Inter and JetBrains Mono
   - Base typography styles
   - Tailwind directives (`@tailwind base/components/utilities`)
-- [ ] Define color palette
+- [x] Define color palette
   - Light mode: white bg, near-black text, gray accents
   - Dark mode: near-black bg, off-white text, gray accents
   - Orange accent: `#f97316` (Tailwind orange-500) or similar
-- [ ] Configure Shiki themes in Astro config
+- [x] Configure Shiki themes in Astro config
   - Light: `github-light`
   - Dark: `github-dark`
 
