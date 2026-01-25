@@ -109,30 +109,30 @@ document.documentElement.classList.toggle('dark', theme === 'dark');
 ## Phase 4: Components
 
 ### Tasks
-- [ ] Create `src/components/Header.astro`
+- [x] Create `src/components/Header.astro`
   - Navigation links: Home, Blog, Projects, About
   - Theme toggle (desktop)
   - Active link indicator (underline)
-- [ ] Create `src/components/MobileNav.astro`
+- [x] Create `src/components/MobileNav.astro`
   - Hamburger button
   - Slide-out menu
   - Links + theme toggle
   - Close button / overlay dismiss
-- [ ] Create `src/components/ThemeToggle.astro`
+- [x] Create `src/components/ThemeToggle.astro`
   - iOS-style switch
   - Client-side script to toggle and persist
-- [ ] Create `src/components/Footer.astro`
+- [x] Create `src/components/Footer.astro`
   - Copyright line only
-- [ ] Create `src/components/PostCard.astro`
+- [x] Create `src/components/PostCard.astro`
   - Props: title, date, description, tags, slug
   - Simple list item: title (link), date, tag pills
-- [ ] Create `src/components/PostNav.astro`
+- [x] Create `src/components/PostNav.astro`
   - Props: prevPost, nextPost
   - Previous/Next links with titles
-- [ ] Create `src/components/TagPill.astro`
+- [x] Create `src/components/TagPill.astro`
   - Props: tag, linked (boolean)
   - Orange accent pill/chip style
-- [ ] Create `src/components/ProjectCard.astro`
+- [x] Create `src/components/ProjectCard.astro`
   - Props: title, description, url, tags
   - Card layout with link
 

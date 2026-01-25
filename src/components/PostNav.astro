@@ -1,0 +1,51 @@
+---
+export interface NavPost {
+  slug: string;
+  title: string;
+}
+
+export interface Props {
+  prevPost?: NavPost;
+  nextPost?: NavPost;
+}
+
+const { prevPost, nextPost } = Astro.props;
+---
+
+{
+  (prevPost || nextPost) && (
+    <nav class="flex flex-col sm:flex-row gap-4 pt-8 mt-8 border-t border-[var(--color-border)]">
+      {prevPost ? (
+        <a
+          href={`/blog/${prevPost.slug}`}
+          class="flex-1 group p-4 rounded-lg border border-[var(--color-border)] hover:border-accent/50 transition-colors"
+        >
+          <span class="text-xs text-[var(--color-text-muted)] uppercase tracking-wide">
+            Previous
+          </span>
+          <span class="block mt-1 text-sm font-medium text-[var(--color-text)] group-hover:text-accent transition-colors">
+            {prevPost.title}
+          </span>
+        </a>
+      ) : (
+        <div class="flex-1" />
+      )}
+
+      {nextPost ? (
+        <a
+          href={`/blog/${nextPost.slug}`}
+          class="flex-1 group p-4 rounded-lg border border-[var(--color-border)] hover:border-accent/50 transition-colors text-right"
+        >
+          <span class="text-xs text-[var(--color-text-muted)] uppercase tracking-wide">
+            Next
+          </span>
+          <span class="block mt-1 text-sm font-medium text-[var(--color-text)] group-hover:text-accent transition-colors">
+            {nextPost.title}
+          </span>
+        </a>
+      ) : (
+        <div class="flex-1" />
+      )}
+    </nav>
+  )
+}
