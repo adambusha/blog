@@ -1,0 +1,57 @@
+---
+title: "Getting Started with Astro"
+description: "A quick introduction to Astro, the modern static site generator that ships zero JavaScript by default."
+pubDate: 2025-01-20
+tags: ["astro", "web-development", "tutorial"]
+draft: false
+---
+
+# Getting Started with Astro
+
+Astro is a modern static site generator that focuses on delivering fast, content-focused websites. One of its key features is shipping zero JavaScript by default.
+
+## Why Astro?
+
+Here are some reasons why Astro stands out:
+
+1. **Zero JS by default** - Only ship JavaScript when you need interactivity
+2. **Island Architecture** - Hydrate only the components that need it
+3. **Framework Agnostic** - Use React, Vue, Svelte, or just plain HTML
+4. **Content Collections** - First-class support for Markdown and MDX
+
+## Quick Start
+
+Creating a new Astro project is straightforward:
+
+```bash
+npm create astro@latest
+```
+
+Then start the dev server:
+
+```bash
+npm run dev
+```
+
+## Content Collections
+
+Astro's Content Collections provide type-safe content management:
+
+```typescript
+import { defineCollection, z } from 'astro:content';
+
+const blog = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    pubDate: z.date(),
+    tags: z.array(z.string()),
+  }),
+});
+
+export const collections = { blog };
+```
+
+## Conclusion
+
+Astro is an excellent choice for content-heavy sites like blogs, documentation, and marketing pages. Its focus on performance and developer experience makes it a joy to work with.

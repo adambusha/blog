@@ -141,11 +141,11 @@ document.documentElement.classList.toggle('dark', theme === 'dark');
 ## Phase 5: Content Collections
 
 ### Tasks
-- [ ] Create `src/content/config.ts`
+- [x] Create `src/content/config.ts`
   - Define `blog` collection schema
   - Define `projects` collection schema (optional, could use JSON/frontmatter page)
-- [ ] Create `src/content/blog/` directory
-- [ ] Create sample blog post(s) for testing
+- [x] Create `src/content/blog/` directory
+- [x] Create sample blog post(s) for testing
 
 ### Blog Schema
 ```ts
