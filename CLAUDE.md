@@ -49,4 +49,4 @@ Do not include AI attribution (Co-Authored-By) in commit messages.
 
 ## Implementation Plan
 
-See `PLAN.md` for the 8-phase implementation roadmap. Current status: Phases 1-5 complete (setup, theming, layouts, components, content collections). Phase 6 (pages) is next.
+See `PLAN.md` for the 8-phase implementation roadmap. Current status: Phases 1-6 complete (setup, theming, layouts, components, content collections, pages). Phase 7 (visual polish) is next.

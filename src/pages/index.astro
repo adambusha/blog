@@ -1,17 +1,58 @@
 ---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PostCard from '../components/PostCard.astro';
 
+const allPosts = await getCollection('blog');
+const recentPosts = allPosts
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 5);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="Home" description="A personal blog about software development and technology.">
+  <Header slot="header" />
+  <Footer slot="footer" />
+
+  <section class="mb-12">
+    <h1 class="text-3xl md:text-4xl font-bold mb-4 text-[var(--color-text)]">
+      Welcome
+    </h1>
+    <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">
+      Hi, I'm building things on the web. This is where I share my thoughts on
+      software development, technology, and whatever else I find interesting.
+    </p>
+  </section>
+
+  <section>
+    <div class="flex items-baseline justify-between mb-6">
+      <h2 class="text-xl font-semibold text-[var(--color-text)]">
+        Recent Posts
+      </h2>
+      <a
+        href="/blog"
+        class="text-sm text-[var(--color-accent)] hover:underline"
+      >
+        View all &rarr;
+      </a>
+    </div>
+
+    {recentPosts.length > 0 ? (
+      <div class="divide-y divide-[var(--color-border)]">
+        {recentPosts.map((post) => (
+          <PostCard
+            title={post.data.title}
+            date={post.data.pubDate}
+            description={post.data.description}
+            tags={post.data.tags}
+            slug={post.slug}
+          />
+        ))}
+      </div>
+    ) : (
+      <p class="text-[var(--color-text-muted)]">No posts yet.</p>
+    )}
+  </section>
+</BaseLayout>
