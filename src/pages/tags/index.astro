@@ -1,0 +1,47 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const allPosts = await getCollection('blog');
+const publishedPosts = allPosts.filter((post) => !post.data.draft);
+
+// Collect all tags with their counts
+const tagCounts = new Map<string, number>();
+publishedPosts.forEach((post) => {
+  post.data.tags.forEach((tag) => {
+    tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1);
+  });
+});
+
+// Sort tags alphabetically
+const sortedTags = Array.from(tagCounts.entries()).sort((a, b) =>
+  a[0].localeCompare(b[0])
+);
+---
+
+<BaseLayout title="Tags" description="Browse all tags.">
+  <Header slot="header" />
+  <Footer slot="footer" />
+
+  <h1 class="text-3xl md:text-4xl font-bold mb-8 text-[var(--color-text)]">
+    Tags
+  </h1>
+
+  {sortedTags.length > 0 ? (
+    <div class="flex flex-wrap gap-3">
+      {sortedTags.map(([tag, count]) => (
+        <a
+          href={`/tags/${tag.toLowerCase()}`}
+          class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-accent)] text-white hover:bg-[var(--color-accent-hover)] transition-colors"
+        >
+          <span>{tag}</span>
+          <span class="text-sm opacity-80">({count})</span>
+        </a>
+      ))}
+    </div>
+  ) : (
+    <p class="text-[var(--color-text-muted)]">No tags yet.</p>
+  )}
+</BaseLayout>

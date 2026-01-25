@@ -166,34 +166,34 @@ const blogCollection = defineCollection({
 ## Phase 6: Pages
 
 ### Tasks
-- [ ] Create `src/pages/index.astro` (Homepage)
+- [x] Create `src/pages/index.astro` (Homepage)
   - Brief intro section
   - Recent posts (3-5)
   - Link to full blog
-- [ ] Create `src/pages/blog/index.astro` (Blog listing)
+- [x] Create `src/pages/blog/index.astro` (Blog listing)
   - Fetch all posts, sort newest first
   - Filter out drafts
   - Render PostCard for each
-- [ ] Create `src/pages/blog/[...slug].astro` (Individual posts)
+- [x] Create `src/pages/blog/[...slug].astro` (Individual posts)
   - Dynamic route from content collection
   - PostLayout with content
   - Prev/next navigation
-- [ ] Create `src/pages/tags/index.astro` (All tags)
+- [x] Create `src/pages/tags/index.astro` (All tags)
   - List all unique tags
   - Show post count per tag
-- [ ] Create `src/pages/tags/[tag].astro` (Filtered by tag)
+- [x] Create `src/pages/tags/[tag].astro` (Filtered by tag)
   - Dynamic route
   - Posts filtered by tag
-- [ ] Create `src/pages/about.astro`
+- [x] Create `src/pages/about.astro`
   - Brief bio paragraph
   - BaseLayout
-- [ ] Create `src/pages/projects.astro`
+- [x] Create `src/pages/projects.astro`
   - List/cards of projects
   - BaseLayout
-- [ ] Create `src/pages/404.astro`
+- [x] Create `src/pages/404.astro`
   - Custom styled 404
   - Link back to home
-- [ ] Create `src/pages/rss.xml.ts`
+- [x] Create `src/pages/rss.xml.ts`
   - RSS feed endpoint using @astrojs/rss
 
 ---
