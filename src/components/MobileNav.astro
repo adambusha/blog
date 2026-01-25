@@ -149,8 +149,12 @@ function isActive(href: string): boolean {
     });
   }
 
-  // Run on initial load
-  initMobileNav();
+  // Run on initial load - wait for DOM to be ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMobileNav);
+  } else {
+    initMobileNav();
+  }
 
   // Re-run after Astro page transitions
   document.addEventListener('astro:after-swap', initMobileNav);

@@ -201,23 +201,23 @@ const blogCollection = defineCollection({
 ## Phase 7: Visual Polish
 
 ### Tasks
-- [ ] Implement geometric line accents
-  - Experiment with corner decorations
-  - Section dividers
-  - Header/footer borders
-- [ ] Verify responsive design
-  - Test at mobile (375px), tablet (768px), desktop (1024px+)
-  - Hamburger menu works properly
-- [ ] Verify dark/light mode
-  - All colors swap correctly
-  - Code blocks match theme
-  - No flash on page load
-- [ ] Verify typography
-  - Headings hierarchy clear
-  - Body text readable
-  - Code font renders correctly
-- [ ] Test RSS feed validity
-  - Use feed validator
+- [x] Implement geometric line accents
+  - Corner decorations (`.corner-accent`, `.corner-accent-hover`, `.corner-accent-double`)
+  - Section dividers (`.section-divider`)
+  - Header/footer accent bars (`.header-accent`, `.footer-accent` with gradient borders)
+- [x] Verify responsive design
+  - Mobile (375px), tablet (768px), desktop (1024px+) supported
+  - Hamburger menu works properly with slide-out animation
+- [x] Verify dark/light mode
+  - All colors swap correctly via CSS custom properties
+  - Code blocks match theme with Shiki dual themes
+  - No flash on page load (inline script in `<head>`)
+- [x] Verify typography
+  - Headings hierarchy clear (Inter font, semibold, tracking-tight)
+  - Body text readable (proper line heights, muted secondary text)
+  - Code font renders correctly (JetBrains Mono)
+- [x] Test RSS feed validity
+  - Valid RSS 2.0 XML with channel and items
 
 ---
 
