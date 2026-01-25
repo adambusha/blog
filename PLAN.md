@@ -84,13 +84,13 @@
 ## Phase 3: Core Layouts
 
 ### Tasks
-- [ ] Create `src/layouts/BaseLayout.astro`
+- [x] Create `src/layouts/BaseLayout.astro`
   - HTML document structure
   - `<head>` with meta, fonts, global CSS
   - Inline theme script (prevent flash)
   - Open Graph meta tags (props: title, description, image)
   - Slot for page content
-- [ ] Create `src/layouts/PostLayout.astro`
+- [x] Create `src/layouts/PostLayout.astro`
   - Extends BaseLayout
   - Post title, date, tags
   - Prose styling for content
