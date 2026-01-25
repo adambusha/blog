@@ -224,14 +224,15 @@ const blogCollection = defineCollection({
 ## Phase 8: Deployment
 
 ### Tasks
-- [ ] Create `.github/workflows/deploy.yml`
-- [ ] Create GitHub repository
-- [ ] Push code to GitHub
+- [x] Create `.github/workflows/deploy.yml`
+- [x] Create GitHub repository
+- [x] Push code to GitHub
+- [x] Add CNAME file to `public/` (adambusha.com)
+- [x] Update `astro.config.mjs` with site URL
 - [ ] Enable GitHub Pages in repo settings
   - Source: GitHub Actions
-- [ ] Configure custom domain
-  - Add CNAME file to `public/`
-  - Set DNS records (A records or CNAME to github.io)
+- [ ] Configure DNS records
+  - Set A records or CNAME to github.io
   - Enable HTTPS in GitHub Pages settings
 - [ ] Verify deployment works
 
