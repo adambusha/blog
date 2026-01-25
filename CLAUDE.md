@@ -47,6 +47,16 @@ Shiki with dual themes configured in `astro.config.mjs`:
 
 Do not include AI attribution (Co-Authored-By) in commit messages.
 
+### Geometric Line Accents
+
+Utility classes in `src/styles/global.css` for visual polish:
+- `.section-divider` - Orange line accent at top-left of section
+- `.corner-accent` - L-shaped orange accent at top-left corner
+- `.corner-accent-hover` - Expands on hover (combine with `.corner-accent`)
+- `.corner-accent-double` - Border accents at top-left and bottom-right
+- `.header-accent` - Gradient bottom border (orange left, gray right)
+- `.footer-accent` - Gradient top border (gray left, orange right)
+
 ## Implementation Plan
 
-See `PLAN.md` for the 8-phase implementation roadmap. Current status: Phases 1-6 complete (setup, theming, layouts, components, content collections, pages). Phase 7 (visual polish) is next.
+See `PLAN.md` for the 8-phase implementation roadmap. Current status: Phases 1-7 complete (setup, theming, layouts, components, content collections, pages, visual polish). Phase 8 (deployment) is next.

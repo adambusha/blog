@@ -130,4 +130,101 @@
     --tw-prose-pre-bg: var(--color-code-bg);
     --tw-prose-hr: var(--color-border);
   }
+
+  /* Geometric line accents */
+  .section-divider {
+    @apply relative;
+  }
+
+  .section-divider::before {
+    content: '';
+    @apply absolute left-0 top-0 w-12 h-px bg-[var(--color-accent)];
+  }
+
+  /* Corner accent for cards/sections */
+  .corner-accent {
+    @apply relative;
+  }
+
+  .corner-accent::before,
+  .corner-accent::after {
+    content: '';
+    @apply absolute bg-[var(--color-accent)] transition-all duration-200;
+  }
+
+  .corner-accent::before {
+    @apply top-0 left-0 w-4 h-px;
+  }
+
+  .corner-accent::after {
+    @apply top-0 left-0 w-px h-4;
+  }
+
+  /* Hover-expanded corner accent */
+  .corner-accent-hover:hover::before {
+    @apply w-8;
+  }
+
+  .corner-accent-hover:hover::after {
+    @apply h-8;
+  }
+
+  /* Double corner (top-left and bottom-right) */
+  .corner-accent-double {
+    @apply relative;
+  }
+
+  .corner-accent-double::before {
+    content: '';
+    @apply absolute top-0 left-0 w-4 h-4 border-l-2 border-t-2 border-[var(--color-accent)];
+  }
+
+  .corner-accent-double::after {
+    content: '';
+    @apply absolute bottom-0 right-0 w-4 h-4 border-r-2 border-b-2 border-[var(--color-accent)];
+  }
+
+  /* Accent line (horizontal) */
+  .accent-line {
+    @apply relative pl-4;
+  }
+
+  .accent-line::before {
+    content: '';
+    @apply absolute left-0 top-1/2 -translate-y-1/2 w-2 h-px bg-[var(--color-accent)];
+  }
+
+  /* Header accent bar */
+  .header-accent {
+    @apply relative;
+  }
+
+  .header-accent::after {
+    content: '';
+    @apply absolute bottom-0 left-0 right-0 h-px;
+    background: linear-gradient(
+      90deg,
+      var(--color-accent) 0%,
+      var(--color-accent) 20%,
+      var(--color-border) 20%,
+      var(--color-border) 100%
+    );
+  }
+
+  /* Footer accent bar */
+  .footer-accent {
+    @apply relative;
+  }
+
+  .footer-accent::before {
+    content: '';
+    @apply absolute top-0 left-0 right-0 h-px;
+    background: linear-gradient(
+      90deg,
+      var(--color-border) 0%,
+      var(--color-border) 80%,
+      var(--color-accent) 80%,
+      var(--color-accent) 100%
+    );
+  }
 }
