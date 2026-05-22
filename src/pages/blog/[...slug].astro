@@ -1,5 +1,5 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
 import PostLayout from '../../layouts/PostLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
@@ -16,14 +16,14 @@ export async function getStaticPaths() {
     const nextPost = publishedPosts[index - 1];
 
     return {
-      params: { slug: post.slug },
+      params: { slug: post.id },
       props: {
         post,
         prevPost: prevPost
-          ? { slug: prevPost.slug, title: prevPost.data.title }
+          ? { slug: prevPost.id, title: prevPost.data.title }
           : undefined,
         nextPost: nextPost
-          ? { slug: nextPost.slug, title: nextPost.data.title }
+          ? { slug: nextPost.id, title: nextPost.data.title }
           : undefined,
       },
     };
@@ -37,7 +37,7 @@ interface Props {
 }
 
 const { post, prevPost, nextPost } = Astro.props;
-const { Content } = await post.render();
+const { Content } = await render(post);
 ---
 
 <PostLayout
