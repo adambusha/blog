@@ -6,10 +6,31 @@
 @import '@fontsource/jetbrains-mono/400.css';
 @import '@fontsource/jetbrains-mono/500.css';
 
-/* Tailwind directives */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Tailwind v4 */
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+/* Class-based dark mode */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Theme tokens exposed as Tailwind utilities */
+@theme {
+  --color-accent: #f97316;
+  --color-accent-50: #fff7ed;
+  --color-accent-100: #ffedd5;
+  --color-accent-200: #fed7aa;
+  --color-accent-300: #fdba74;
+  --color-accent-400: #fb923c;
+  --color-accent-500: #f97316;
+  --color-accent-600: #ea580c;
+  --color-accent-700: #c2410c;
+  --color-accent-800: #9a3412;
+  --color-accent-900: #7c2d12;
+  --color-accent-950: #431407;
+
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
 
 /* CSS Custom Properties */
 @layer base {
@@ -91,12 +112,12 @@
   /* Shiki dual theme support */
   pre.shiki,
   pre.astro-code {
-    @apply bg-[var(--color-code-bg)] !important;
+    @apply bg-[var(--color-code-bg)]!;
   }
 
   .dark pre.shiki,
   .dark pre.astro-code {
-    @apply bg-[var(--color-code-bg)] !important;
+    @apply bg-[var(--color-code-bg)]!;
   }
 
   /* Light theme: show light code, hide dark */
