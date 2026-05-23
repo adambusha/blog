@@ -128,23 +128,6 @@
     color: var(--color-accent);
   }
 
-  /* Header bottom border */
-  .header-accent {
-    @apply relative;
-  }
-
-  .header-accent::after {
-    content: '';
-    @apply absolute bottom-0 left-0 right-0 h-px;
-    background: linear-gradient(
-      90deg,
-      var(--color-accent) 0%,
-      var(--color-accent) 20%,
-      var(--color-border) 20%,
-      var(--color-border) 100%
-    );
-  }
-
   /* Footer top border */
   .footer-accent {
     @apply relative;

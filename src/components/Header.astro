@@ -19,7 +19,7 @@ const version = `v${new Date().getFullYear()}.${String(new Date().getMonth() + 1
 ---
 
 <header class="w-full border-b border-[var(--color-border)]">
-  <nav class="flex items-center justify-between px-12 py-5 font-mono text-[13px]">
+  <nav class="flex items-center justify-between px-12 py-5 font-mono text-[13px] overflow-x-auto">
     <!-- Brand -->
     <div class="flex items-center gap-2.5">
       <span class="text-[var(--color-accent)] font-semibold">~/</span>
@@ -29,26 +29,29 @@ const version = `v${new Date().getFullYear()}.${String(new Date().getMonth() + 1
     </div>
 
     <!-- Nav links -->
-    <div class="flex gap-7">
+    <ul class="flex gap-7 list-none m-0 p-0">
       {navLinks.map(({ href, label }) => (
-        <a
-          href={href}
-          class:list={[
-            'pb-1 no-underline transition-colors',
-            isActive(href)
-              ? 'text-[var(--color-text)] border-b border-[var(--color-accent)]'
-              : 'text-[var(--color-text-muted)] hover:text-[var(--color-text)]',
-          ]}
-        >
-          {label}
-        </a>
+        <li>
+          <a
+            href={href}
+            class:list={[
+              'pb-1 no-underline transition-colors',
+              isActive(href)
+                ? 'text-[var(--color-text)] border-b border-[var(--color-accent)]'
+                : 'text-[var(--color-text-muted)] hover:text-[var(--color-text)]',
+            ]}
+          >
+            {label}
+          </a>
+        </li>
       ))}
-    </div>
+    </ul>
 
     <!-- Controls -->
     <div class="flex items-center gap-3.5 text-[var(--color-text-muted)]">
-      <span>⌘K</span>
+      <span aria-hidden="true">⌘K</span>
       <span
+        aria-hidden="true"
         class="w-2 h-2 rounded-full bg-[var(--color-success)]"
         style="box-shadow: 0 0 6px var(--color-success)"
       ></span>
