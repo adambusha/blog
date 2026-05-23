@@ -4,30 +4,77 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 ---
 
-<BaseLayout title="About" description="Learn more about me and this blog.">
+<BaseLayout title="About — Adam Busha" description="Hi, I'm Adam. Software, the web, and slow craft.">
   <Header slot="header" />
   <Footer slot="footer" />
 
-  <h1 class="text-3xl md:text-4xl font-bold mb-8 text-[var(--color-text)]">
-    About
-  </h1>
+  <div class="grid grid-cols-[1fr_0.85fr] gap-16 px-12 pt-16 pb-16">
+    <!-- Left column -->
+    <div class="max-w-[580px]">
+      <div class="font-mono text-xs text-[var(--color-text-muted)] mb-4">
+        <span class="text-[var(--color-accent)]">$</span> whoami
+      </div>
+      <h1 class="m-0 text-[56px] font-semibold tracking-[-0.09rem] leading-[1.05]">
+        About,<br />at the moment.
+      </h1>
+      <div class="mt-8 text-base leading-[1.65] text-[var(--color-text-muted)] space-y-4">
+        <p class="m-0">
+          Hi, I'm Adam. I write code for the web — mostly TypeScript and Rust these days, with a
+          soft spot for Go on the server.
+        </p>
+        <p class="m-0">
+          I work on shipping small things that try to feel good to use. I care about typography,
+          performance budgets, and the kind of details nobody is asked to notice.
+        </p>
+        <p class="m-0">
+          Outside of work I read a lot, run slowly, and tinker with side projects I rarely finish.
+          This blog is where I put down whatever I've been thinking about lately — half notebook,
+          half public draft.
+        </p>
+      </div>
+      <div class="mt-9 p-5 border border-[var(--color-border)] rounded-md bg-[var(--color-panel)]">
+        <div class="font-mono text-[11px] text-[var(--color-dim)] mb-2.5 tracking-wide">
+          $ cat /etc/contact
+        </div>
+        <div class="font-mono text-[13px] text-[var(--color-text)] leading-[1.8]">
+          <div>
+            email&nbsp;&nbsp; <a href="mailto:hi@adambusha.com" class="text-[var(--color-accent)] no-underline hover:underline">hi@adambusha.com</a>
+          </div>
+          <div>
+            github&nbsp; <a href="https://github.com/adambusha" class="text-[var(--color-accent)] no-underline hover:underline">github.com/adambusha</a>
+          </div>
+          <div>
+            rss&nbsp;&nbsp;&nbsp;&nbsp; <a href="/rss.xml" class="text-[var(--color-accent)] no-underline hover:underline">/rss.xml</a>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <div class="prose prose-lg max-w-none prose-p:text-[var(--color-text)] prose-headings:text-[var(--color-text)] prose-a:text-[var(--color-accent)] prose-a:no-underline hover:prose-a:underline prose-strong:text-[var(--color-text)]">
-    <p>
-      Welcome to my corner of the internet. I'm a software developer who enjoys
-      building things for the web and exploring new technologies.
-    </p>
+    <!-- Right column -->
+    <div>
+      <div class="font-mono text-[11px] text-[var(--color-dim)] mb-3.5 tracking-wide">
+        $ uname -a
+      </div>
+      <div class="border border-[var(--color-border)] rounded-md p-5 bg-[var(--color-panel)] font-mono text-[13px] leading-[1.7] text-[var(--color-text-muted)]">
+        <div><span class="text-[var(--color-dim)]">kernel&nbsp;</span><span class="text-[var(--color-text)]">adam-busha</span></div>
+        <div><span class="text-[var(--color-dim)]">arch&nbsp;&nbsp; </span><span class="text-[var(--color-text)]">x86_64 brooklyn</span></div>
+        <div><span class="text-[var(--color-dim)]">shell&nbsp; </span><span class="text-[var(--color-text)]">zsh, slowly</span></div>
+        <div><span class="text-[var(--color-dim)]">now&nbsp;&nbsp;&nbsp; </span><span class="text-[var(--color-text)]">writing more, shipping less</span></div>
+      </div>
 
-    <p>
-      This blog is where I share my thoughts, learnings, and experiences in
-      software development. Whether it's diving into a new framework, solving an
-      interesting problem, or reflecting on the craft of programming, you'll
-      find it here.
-    </p>
-
-    <p>
-      Feel free to reach out if you'd like to connect or discuss anything you
-      find on this site.
-    </p>
+      <div class="mt-7 font-mono text-[11px] text-[var(--color-dim)] mb-3.5 tracking-wide">
+        $ history | tail
+      </div>
+      <div class="font-mono text-[12.5px] text-[var(--color-text-muted)] leading-[1.9]">
+        <div><span class="text-[var(--color-dim)]">2026&nbsp;</span>writing more, shipping less</div>
+        <div><span class="text-[var(--color-dim)]">2025&nbsp;</span>moved to brooklyn; learned go</div>
+        <div>
+          <span class="text-[var(--color-dim)]">2024&nbsp;</span>started{' '}
+          <a href="/projects" class="text-[var(--color-accent)] no-underline hover:underline">trailmark</a>
+        </div>
+        <div><span class="text-[var(--color-dim)]">2023&nbsp;</span>went freelance; bought a synth</div>
+        <div><span class="text-[var(--color-dim)]">2022&nbsp;</span>finally read SICP. didn't finish.</div>
+      </div>
+    </div>
   </div>
 </BaseLayout>

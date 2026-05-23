@@ -1,0 +1,24 @@
+---
+export interface Props {
+  command: string;
+  output: string;
+}
+
+const { command, output } = Astro.props;
+---
+
+<div class="border border-[var(--color-border)] rounded-md font-mono text-[12.5px] overflow-hidden bg-[var(--color-panel)]">
+  <div class="flex items-center gap-2 px-3.5 py-2 border-b border-[var(--color-border)] bg-[var(--color-panel-alt)] text-[var(--color-text-muted)]">
+    <span class="w-2.5 h-2.5 rounded-full bg-[#e06c5e] inline-block"></span>
+    <span class="w-2.5 h-2.5 rounded-full bg-[#e0c25e] inline-block"></span>
+    <span class="w-2.5 h-2.5 rounded-full bg-[#7fc89c] inline-block"></span>
+    <span class="ml-2.5 text-[11px]">~/adam.busha — zsh</span>
+  </div>
+  <div class="px-4 py-4 leading-relaxed">
+    <div>
+      <span class="text-[var(--color-accent)]">›</span>
+      <span class="text-[var(--color-text)] ml-1">{command}</span>
+    </div>
+    <div class="text-[var(--color-text-muted)] whitespace-pre-wrap mt-1">{output}</div>
+  </div>
+</div>

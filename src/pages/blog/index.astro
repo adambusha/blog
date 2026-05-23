@@ -4,34 +4,73 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import PostCard from '../../components/PostCard.astro';
+import { readTime } from '../../utils/readTime';
 
 const allPosts = await getCollection('blog');
 const posts = allPosts
   .filter((post) => !post.data.draft)
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const filterTags = ['all', 'engineering', 'css', 'typescript', 'process', 'astro', 'opinion'];
 ---
 
-<BaseLayout title="Blog" description="All blog posts.">
+<BaseLayout title="Blog — Adam Busha" description="Notes on shipping software.">
   <Header slot="header" />
   <Footer slot="footer" />
 
-  <h1 class="text-3xl md:text-4xl font-bold mb-8 text-[var(--color-text)]">
-    Blog
-  </h1>
+  <div class="px-12 pt-12 pb-16">
+    <div class="flex items-baseline justify-between">
+      <div>
+        <div class="font-mono text-xs text-[var(--color-text-muted)] mb-2.5">
+          <span class="text-[var(--color-accent)]">~/</span>blog
+        </div>
+        <h1 class="m-0 text-[40px] font-semibold tracking-[-0.05rem]">The blog</h1>
+        <p class="mt-2.5 text-[15px] text-[var(--color-text-muted)] max-w-[480px]">
+          Notes on shipping software. {posts.length} posts, most recent first. Probably typo-free.
+        </p>
+      </div>
+      <div class="flex items-center gap-2.5 px-3.5 py-2 border border-[var(--color-border)] rounded bg-[var(--color-panel)] font-mono text-xs text-[var(--color-text-muted)]">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="5" cy="5" r="3.5"/>
+          <path d="M8 8l3 3"/>
+        </svg>
+        <span>grep posts…</span>
+        <span class="ml-7 text-[var(--color-dim)]" aria-hidden="true">⌘K</span>
+      </div>
+    </div>
 
-  {posts.length > 0 ? (
-    <div class="divide-y divide-[var(--color-border)]">
-      {posts.map((post) => (
-        <PostCard
-          title={post.data.title}
-          date={post.data.pubDate}
-          description={post.data.description}
-          tags={post.data.tags}
-          slug={post.id}
-        />
+    <div class="mt-7 flex gap-2 flex-wrap">
+      {filterTags.map((tag, i) => (
+        <button
+          class:list={[
+            'font-mono text-xs px-3 py-1.5 rounded border cursor-default',
+            i === 0
+              ? 'border-[var(--color-text)] bg-[var(--color-text)] text-[var(--color-bg)]'
+              : 'border-[var(--color-border)] bg-transparent text-[var(--color-text-muted)]',
+          ]}
+          aria-disabled={i !== 0}
+        >
+          {tag}
+        </button>
       ))}
     </div>
-  ) : (
-    <p class="text-[var(--color-text-muted)]">No posts yet.</p>
-  )}
+
+    {posts.length > 0 ? (
+      <div class="mt-9 grid grid-cols-2 gap-4">
+        {posts.map((post, i) => (
+          <PostCard
+            title={post.data.title}
+            date={post.data.pubDate}
+            description={post.data.description}
+            tags={post.data.tags}
+            slug={post.id}
+            index={i}
+            readTime={readTime(post.body)}
+          />
+        ))}
+      </div>
+    ) : (
+      <p class="mt-9 font-mono text-sm text-[var(--color-text-muted)]">No posts yet.</p>
+    )}
+  </div>
 </BaseLayout>

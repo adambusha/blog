@@ -2,44 +2,93 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import ProjectCard from '../components/ProjectCard.astro';
 
 const projects = [
   {
-    title: 'Project One',
-    description: 'A brief description of this project and what it does. This is placeholder content that should be replaced with actual project details.',
-    url: 'https://github.com',
-    tags: ['TypeScript', 'React'],
+    name: 'Trailmark',
+    tagline: 'Offline-first maps for hikers and trip planners.',
+    stack: ['TypeScript', 'Mapbox', 'IndexedDB'],
+    year: '2024 →',
+    status: 'Active',
   },
   {
-    title: 'Project Two',
-    description: 'Another project description goes here. Replace this with real information about your actual projects.',
-    url: 'https://github.com',
-    tags: ['Python', 'FastAPI'],
+    name: 'Bytecount',
+    tagline: 'A minimal word and reading-time counter that runs entirely in the browser.',
+    stack: ['Rust', 'WASM'],
+    year: '2024',
+    status: 'Shipped',
+  },
+  {
+    name: 'Lichen',
+    tagline: 'A quiet RSS reader. No algorithm, no unread badge anxiety, just feeds.',
+    stack: ['Go', 'React', 'SQLite'],
+    year: '2023',
+    status: 'Maintained',
+  },
+  {
+    name: 'Pebble',
+    tagline: 'A tiny URL shortener I host for myself, mostly to learn Workers.',
+    stack: ['Cloudflare Workers', 'KV'],
+    year: '2023',
+    status: 'Personal',
   },
 ];
 ---
 
-<BaseLayout title="Projects" description="A collection of projects I've worked on.">
+<BaseLayout title="Projects — Adam Busha" description="A short list of things I've made.">
   <Header slot="header" />
   <Footer slot="footer" />
 
-  <h1 class="text-3xl md:text-4xl font-bold mb-8 text-[var(--color-text)]">
-    Projects
-  </h1>
+  <div class="px-12 pt-12 pb-16">
+    <div class="font-mono text-xs text-[var(--color-text-muted)] mb-2.5">
+      <span class="text-[var(--color-accent)]">~/</span>projects
+    </div>
+    <h1 class="m-0 text-[40px] font-semibold tracking-[-0.05rem]">Things I made</h1>
+    <p class="mt-2.5 text-[15px] text-[var(--color-text-muted)] max-w-[540px]">
+      A short list. Some are public, some I run for myself, some I keep meaning to rewrite.
+    </p>
 
-  <p class="text-[var(--color-text-muted)] mb-8">
-    A collection of projects I've built or contributed to.
-  </p>
+    <div class="mt-9 border border-[var(--color-border)] rounded-md bg-[var(--color-panel)] overflow-hidden">
+      <!-- Header row -->
+      <div class="grid grid-cols-[32px_200px_1fr_220px_100px] gap-4 px-5 py-3.5 border-b border-[var(--color-border)] bg-[var(--color-panel-alt)] font-mono text-[11px] text-[var(--color-dim)] tracking-wide uppercase">
+        <div>#</div>
+        <div>Name</div>
+        <div>What</div>
+        <div>Stack</div>
+        <div>Year</div>
+      </div>
 
-  <div class="grid gap-4">
-    {projects.map((project) => (
-      <ProjectCard
-        title={project.title}
-        description={project.description}
-        url={project.url}
-        tags={project.tags}
-      />
-    ))}
+      {projects.map((project, i) => (
+        <div
+          class:list={[
+            'grid grid-cols-[32px_200px_1fr_220px_100px] gap-4 px-5 py-5 items-baseline',
+            i > 0 ? 'border-t border-[var(--color-border-soft)]' : '',
+          ]}
+        >
+          <div class="font-mono text-xs text-[var(--color-dim)]">
+            {String(i + 1).padStart(2, '0')}
+          </div>
+          <div>
+            <div class="text-[17px] font-semibold tracking-tight text-[var(--color-text)]">
+              {project.name}
+            </div>
+            <span class="mt-1 inline-block px-2 py-0.5 font-mono text-[10px] text-[var(--color-success)] border border-[var(--color-success)] rounded-sm opacity-80">
+              {project.status}
+            </span>
+          </div>
+          <div class="text-[14px] text-[var(--color-text-muted)] leading-[1.55]">
+            {project.tagline}
+          </div>
+          <div class="flex gap-1.5 flex-wrap">
+            {project.stack.map((tech) => (
+              <span class="inline-block px-2 py-0.5 font-mono text-[11px] text-[var(--color-text-muted)] border border-[var(--color-border)] rounded-sm">
+                {tech}
+              </span>
+            ))}
+          </div>
+          <div class="font-mono text-xs text-[var(--color-dim)]">{project.year}</div>
+        </div>
+      ))}
+    </div>
   </div>
 </BaseLayout>

@@ -7,67 +7,111 @@ export interface Props {
   pubDate: Date;
   tags?: string[];
   image?: string;
+  slug?: string;
+  nextPost?: { slug: string; title: string; date: Date };
 }
 
-const { title, description, pubDate, tags = [], image } = Astro.props;
+const { title, description, pubDate, tags = [], image, slug = '', nextPost } = Astro.props;
 
-// Format the date
-const formattedDate = pubDate.toLocaleDateString('en-US', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-});
+const isoDate = pubDate.toISOString().slice(0, 10);
 ---
 
-<BaseLayout title={title} description={description} image={image}>
+<BaseLayout title={`${title} — Adam Busha`} description={description} image={image}>
   <slot name="header" slot="header" />
   <slot name="footer" slot="footer" />
 
-  <article>
-    <!-- Post Header -->
-    <header class="mb-8 pb-8 border-b border-[var(--color-border)]">
-      <h1 class="text-3xl md:text-4xl font-bold mb-4 text-[var(--color-text)]">
+  <div class="grid grid-cols-[220px_1fr_220px]" style="min-height: calc(100vh - 65px)">
+    <!-- Left: TOC + Meta -->
+    <aside class="pt-12 pl-12 pr-6 border-r border-[var(--color-border-soft)]">
+      <div class="font-mono text-[11px] text-[var(--color-dim)] mb-3.5 tracking-wide uppercase">
+        On This Page
+      </div>
+      <div class="font-mono text-xs text-[var(--color-text-muted)] space-y-1.5">
+        <div class="pl-2.5 text-[var(--color-accent)] border-l-2 border-[var(--color-accent)]">
+          Introduction
+        </div>
+        <div class="pl-2.5 border-l-2 border-transparent">Body</div>
+      </div>
+
+      <div class="mt-8 pt-4 border-t border-[var(--color-border-soft)]">
+        <div class="font-mono text-[11px] text-[var(--color-dim)] mb-2.5 tracking-wide uppercase">
+          Meta
+        </div>
+        <div class="font-mono text-[11.5px] text-[var(--color-text-muted)] leading-[1.7]">
+          <div>commit&nbsp; <span class="text-[var(--color-accent)]">a47f2b1</span></div>
+          <div>posted&nbsp; <span class="text-[var(--color-text)]">{isoDate}</span></div>
+          {tags.length > 0 && (
+            <div>tags&nbsp;&nbsp;&nbsp; <span class="text-[var(--color-text)]">{tags.join(', ')}</span></div>
+          )}
+        </div>
+      </div>
+    </aside>
+
+    <!-- Center: Article content -->
+    <div class="pt-12 px-14 pb-16 max-w-[780px]">
+      <div class="font-mono text-xs text-[var(--color-text-muted)] mb-3.5">
+        <span class="text-[var(--color-accent)]">blog/</span>{slug || 'post'}.md
+      </div>
+      <h1 class="m-0 text-[42px] font-semibold tracking-[-0.05rem] leading-[1.1] text-[var(--color-text)]">
         {title}
       </h1>
-
-      <div class="flex flex-wrap items-center gap-4 text-sm text-[var(--color-text-muted)]">
-        <time datetime={pubDate.toISOString()}>
-          {formattedDate}
-        </time>
-
-        {
-          tags.length > 0 && (
-            <div class="flex flex-wrap gap-2">
-              {tags.map((tag) => (
-                <span class="inline-block px-2 py-1 text-xs font-medium rounded-full bg-[var(--color-accent)] text-white">
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )
-        }
+      {tags.length > 0 && (
+        <div class="flex gap-2 mt-4 flex-wrap">
+          {tags.map((tag) => (
+            <a
+              href={`/tags/${tag}`}
+              class="inline-block px-2 py-0.5 font-mono text-[11px] text-[var(--color-text-muted)] border border-[var(--color-border)] rounded-sm no-underline hover:border-[var(--color-accent)] hover:text-[var(--color-text)] transition-colors"
+            >
+              {tag}
+            </a>
+          ))}
+        </div>
+      )}
+      <div
+        class="mt-7 prose prose-lg max-w-none terminal-prose
+          prose-headings:text-[var(--color-text)]
+          prose-p:text-[var(--color-text-muted)]
+          prose-a:text-[var(--color-accent)] prose-a:no-underline hover:prose-a:underline
+          prose-strong:text-[var(--color-text)]
+          prose-code:text-[var(--color-code-text)] prose-code:bg-[var(--color-code-bg)]
+          prose-pre:bg-[var(--color-code-bg)]
+          prose-blockquote:border-l-[var(--color-accent)] prose-blockquote:text-[var(--color-text-muted)]
+          prose-hr:border-[var(--color-border)]
+          prose-li:text-[var(--color-text-muted)]
+          prose-ul:text-[var(--color-text-muted)]
+          prose-ol:text-[var(--color-text-muted)]"
+      >
+        <slot />
       </div>
-    </header>
-
-    <!-- Post Content -->
-    <div
-      class="prose prose-lg max-w-none
-        prose-headings:text-[var(--color-text)]
-        prose-p:text-[var(--color-text)]
-        prose-a:text-[var(--color-accent)] prose-a:no-underline hover:prose-a:underline
-        prose-strong:text-[var(--color-text)]
-        prose-code:text-[var(--color-code-text)] prose-code:bg-[var(--color-code-bg)]
-        prose-pre:bg-[var(--color-code-bg)]
-        prose-blockquote:border-l-[var(--color-accent)] prose-blockquote:text-[var(--color-text-muted)]
-        prose-hr:border-[var(--color-border)]
-        prose-li:text-[var(--color-text)]
-        prose-ul:text-[var(--color-text)]
-        prose-ol:text-[var(--color-text)]"
-    >
-      <slot />
     </div>
 
-    <!-- Post Navigation (prev/next) -->
-    <slot name="post-nav" />
-  </article>
+    <!-- Right: Next post + Share -->
+    <aside class="pt-12 pl-4 pr-6">
+      {nextPost && (
+        <div class="mb-7">
+          <div class="font-mono text-[11px] text-[var(--color-dim)] mb-3.5 tracking-wide uppercase">
+            Next
+          </div>
+          <a href={`/blog/${nextPost.slug}`} class="no-underline group">
+            <div class="text-[14px] font-medium text-[var(--color-text)] leading-snug group-hover:text-[var(--color-accent)] transition-colors">
+              {nextPost.title}
+            </div>
+            <div class="mt-1.5 font-mono text-xs text-[var(--color-text-muted)]">
+              {nextPost.date.toISOString().slice(0, 10)}
+            </div>
+          </a>
+        </div>
+      )}
+      <div class:list={["pt-4 border-t border-[var(--color-border-soft)]", nextPost ? "" : "mt-0"]}>
+        <div class="font-mono text-[11px] text-[var(--color-dim)] mb-2.5 tracking-wide uppercase">
+          Share
+        </div>
+        <div class="flex flex-col gap-2 font-mono text-xs text-[var(--color-text-muted)]">
+          <div>$ pbcopy &lt;&lt;&lt; url</div>
+          <div>$ open in rss</div>
+          <div>$ reply via email</div>
+        </div>
+      </div>
+    </aside>
+  </div>
 </BaseLayout>
