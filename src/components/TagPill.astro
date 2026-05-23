@@ -8,17 +8,15 @@ const { tag, linked = true } = Astro.props;
 const href = `/tags/${tag.toLowerCase()}`;
 ---
 
-{
-  linked ? (
-    <a
-      href={href}
-      class="inline-block px-2.5 py-0.5 text-xs font-medium rounded-full bg-accent/10 text-accent hover:bg-accent/20 transition-colors"
-    >
-      {tag}
-    </a>
-  ) : (
-    <span class="inline-block px-2.5 py-0.5 text-xs font-medium rounded-full bg-accent/10 text-accent">
-      {tag}
-    </span>
-  )
-}
+{linked ? (
+  <a
+    href={href}
+    class="inline-block px-2 py-0.5 font-mono text-[11px] text-[var(--color-text-muted)] border border-[var(--color-border)] rounded-sm no-underline hover:text-[var(--color-text)] hover:border-[var(--color-accent)] transition-colors"
+  >
+    {tag}
+  </a>
+) : (
+  <span class="inline-block px-2 py-0.5 font-mono text-[11px] text-[var(--color-text-muted)] border border-[var(--color-border)] rounded-sm">
+    {tag}
+  </span>
+)}
