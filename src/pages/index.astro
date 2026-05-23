@@ -3,56 +3,125 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import PostCard from '../components/PostCard.astro';
+import TerminalBlock from '../components/TerminalBlock.astro';
+import { readTime } from '../utils/readTime';
 
 const allPosts = await getCollection('blog');
-const recentPosts = allPosts
+const publishedPosts = allPosts
   .filter((post) => !post.data.draft)
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 5);
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const recentPosts = publishedPosts.slice(0, 3);
+
+const daysSince = recentPosts.length > 0
+  ? Math.floor((Date.now() - recentPosts[0].data.pubDate.valueOf()) / (1000 * 60 * 60 * 24))
+  : 0;
+const lastPush = daysSince === 0 ? 'today' : daysSince === 1 ? '1d ago' : `${daysSince}d ago`;
 ---
 
-<BaseLayout title="Home" description="A personal blog about software development and technology.">
+<BaseLayout
+  title="Adam Busha"
+  description="A blog about software, the slow craft of shipping small things, and whatever else I can't stop thinking about that week."
+>
   <Header slot="header" />
   <Footer slot="footer" />
 
-  <section class="mb-12">
-    <h1 class="text-3xl md:text-4xl font-bold mb-4 text-[var(--color-text)]">
-      Welcome
-    </h1>
-    <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">
-      Hi, I'm building things on the web. This is where I share my thoughts on
-      software development, technology, and whatever else I find interesting.
-    </p>
-  </section>
-
-  <section class="section-divider pt-8">
-    <div class="flex items-baseline justify-between mb-6">
-      <h2 class="text-xl font-semibold text-[var(--color-text)]">
-        Recent Posts
-      </h2>
-      <a
-        href="/blog"
-        class="text-sm text-[var(--color-accent)] hover:underline"
-      >
-        View all &rarr;
-      </a>
+  <div class="grid grid-cols-[1.05fr_1fr] gap-16 px-12 pt-16 pb-16">
+    <!-- Left column -->
+    <div>
+      <div class="font-mono text-xs text-[var(--color-text-muted)] mb-4 tracking-wide">
+        <span class="text-[var(--color-accent)]">// </span>introducing
+      </div>
+      <h1 class="m-0 text-[56px] leading-[1.05] tracking-[-0.09rem] font-semibold">
+        Hi, I'm Adam.<br />
+        <span class="text-[var(--color-text-muted)]">I write things on</span><br />
+        <span class="text-[var(--color-text-muted)]">the web and</span>{' '}
+        <span class="text-[var(--color-accent)]">about</span>{' '}
+        <span class="text-[var(--color-text-muted)]">the web.</span>
+      </h1>
+      <p class="mt-7 text-base leading-relaxed text-[var(--color-text-muted)] max-w-[460px]">
+        A blog about software, the slow craft of shipping small things, and
+        whatever else I can't stop thinking about that week.
+      </p>
+      <div class="mt-9 flex gap-3 font-mono text-[13px]">
+        <a
+          href="/blog"
+          class="bg-[var(--color-text)] text-[var(--color-bg)] no-underline px-4 py-2.5 rounded font-medium hover:opacity-90 transition-opacity"
+        >
+          read the blog →
+        </a>
+        <a
+          href="/projects"
+          class="bg-transparent text-[var(--color-text)] no-underline px-4 py-2.5 rounded border border-[var(--color-border)] hover:border-[var(--color-accent)] transition-colors"
+        >
+          $ ls projects/
+        </a>
+      </div>
+      <div class="mt-16 flex gap-10 font-mono text-xs">
+        <div>
+          <div class="text-[var(--color-dim)] mb-1">POSTS</div>
+          <div class="text-[var(--color-text)] text-[18px]">{publishedPosts.length}</div>
+        </div>
+        <div>
+          <div class="text-[var(--color-dim)] mb-1">PROJECTS</div>
+          <div class="text-[var(--color-text)] text-[18px]">4</div>
+        </div>
+        <div>
+          <div class="text-[var(--color-dim)] mb-1">LAST PUSH</div>
+          <div class="text-[var(--color-text)] text-[18px]">{lastPush}</div>
+        </div>
+        <div>
+          <div class="text-[var(--color-dim)] mb-1">YEAR</div>
+          <div class="text-[var(--color-text)] text-[18px]">{new Date().getFullYear()}</div>
+        </div>
+      </div>
     </div>
 
-    {recentPosts.length > 0 ? (
-      <div class="divide-y divide-[var(--color-border)]">
-        {recentPosts.map((post) => (
-          <PostCard
-            title={post.data.title}
-            date={post.data.pubDate}
-            description={post.data.description}
-            tags={post.data.tags}
-            slug={post.id}
-          />
-        ))}
+    <!-- Right column -->
+    <div class="pt-1">
+      <TerminalBlock
+        command="cat about.md | head -8"
+        output={"# adam.busha\n> software, the web, and slow craft.\n\n  → typescript, rust, a little go\n  → typography, perf budgets, details\n  → side projects i rarely finish\n  → currently: trailmark, lichen"}
+      />
+
+      <div class="mt-7">
+        <div class="flex items-baseline justify-between font-mono text-xs text-[var(--color-text-muted)] mb-3.5">
+          <span>
+            <span class="text-[var(--color-accent)]">$</span> ls -t blog/ | head -3
+          </span>
+          <a href="/blog" class="text-[var(--color-dim)] no-underline hover:text-[var(--color-text)] transition-colors">
+            view all →
+          </a>
+        </div>
+        <div class="flex flex-col">
+          {recentPosts.map((post, i) => (
+            <a
+              href={`/blog/${post.id}`}
+              class:list={[
+                'grid grid-cols-[90px_1fr_auto] gap-4 py-3.5 items-baseline no-underline group',
+                i === 0
+                  ? 'border-t border-[var(--color-border)]'
+                  : 'border-t border-[var(--color-border-soft)]',
+                i === recentPosts.length - 1 ? 'border-b border-[var(--color-border)]' : '',
+              ]}
+            >
+              <div class="font-mono text-xs text-[var(--color-dim)]">
+                {post.data.pubDate.toISOString().slice(0, 10)}
+              </div>
+              <div>
+                <div class="text-[15px] font-medium text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors">
+                  {post.data.title}
+                </div>
+                <div class="text-[13px] text-[var(--color-text-muted)] mt-1 leading-[1.5]">
+                  {post.data.description}
+                </div>
+              </div>
+              <div class="font-mono text-[11px] text-[var(--color-dim)]">
+                {readTime(post.body)}
+              </div>
+            </a>
+          ))}
+        </div>
       </div>
-    ) : (
-      <p class="text-[var(--color-text-muted)]">No posts yet.</p>
-    )}
-  </section>
+    </div>
+  </div>
 </BaseLayout>
