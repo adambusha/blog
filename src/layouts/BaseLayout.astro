@@ -61,7 +61,7 @@ const ogImage = image ? new URL(image, Astro.site).toString() : undefined;
   </head>
   <body class="min-h-screen flex flex-col">
     <slot name="header" />
-    <main class="flex-1 w-full max-w-3xl mx-auto px-4 sm:px-6 py-8">
+    <main class="flex-1 w-full">
       <slot />
     </main>
     <slot name="footer" />
