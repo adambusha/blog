@@ -157,9 +157,6 @@ const filename = `${slug || 'post'}.md`;
         <div class="font-mono text-[11.5px] text-[var(--color-text-muted)] leading-[1.7]">
           <div>commit&nbsp; <span class="text-[var(--color-accent)]">a47f2b1</span></div>
           <div>posted&nbsp; <span class="text-[var(--color-text)]">{isoDate}</span></div>
-          {tags.length > 0 && (
-            <div>tags&nbsp;&nbsp;&nbsp; <span class="text-[var(--color-text)]">{tags.join(', ')}</span></div>
-          )}
         </div>
       </div>
     </aside>
@@ -221,10 +218,16 @@ const filename = `${slug || 'post'}.md`;
         <div class="font-mono text-[11px] text-[var(--color-dim)] mb-2.5 tracking-wide uppercase">
           Share
         </div>
-        <div class="flex flex-col gap-2 font-mono text-xs text-[var(--color-text-muted)]">
-          <div>$ pbcopy &lt;&lt;&lt; url</div>
-          <div>$ open in rss</div>
-          <div>$ reply via email</div>
+        <div class="flex flex-col gap-2 font-mono text-xs text-[var(--color-text-muted)] items-start">
+          <button
+            type="button"
+            data-copy-url
+            class="bg-transparent border-0 p-0 m-0 font-mono text-xs text-[var(--color-text-muted)] cursor-pointer hover:text-[var(--color-accent)] transition-colors text-left"
+          >$ pbcopy &lt;&lt;&lt; url</button>
+          <a
+            href="/rss.xml"
+            class="no-underline text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors"
+          >$ open in rss</a>
         </div>
       </div>
     </aside>
