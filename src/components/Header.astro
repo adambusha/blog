@@ -32,12 +32,12 @@ const crumb = mobilePath ?? derivePath();
 const version = `v${new Date().getFullYear()}.${String(new Date().getMonth() + 1).padStart(2, '0')}`;
 ---
 
-<header class="w-full border-b border-[var(--color-border)] bg-[var(--color-bg)]">
+<header class="sticky top-0 z-40 w-full border-b border-[var(--color-border)] bg-[var(--color-bg)]/90 backdrop-blur supports-[backdrop-filter]:bg-[var(--color-bg)]/75">
   <!-- Desktop nav (md+) -->
   <nav class="hidden md:flex items-center justify-between px-12 py-5 font-mono text-[13px] overflow-x-auto">
     <div class="flex items-center gap-2.5">
       <span class="text-[var(--color-accent)] font-semibold">~/</span>
-      <span class="text-[var(--color-text)] font-medium">adam.busha</span>
+      <span class="text-[var(--color-text)] font-medium">adam.bushá</span>
       <span class="text-[var(--color-dim)]">·</span>
       <span class="text-[var(--color-text-muted)]">{version}</span>
     </div>
@@ -85,7 +85,7 @@ const version = `v${new Date().getFullYear()}.${String(new Date().getMonth() + 1
   <!-- Mobile top bar (< md) -->
   <div class="md:hidden flex items-center gap-2.5 px-4 pt-2 pb-3 font-mono text-[12.5px]">
     <span class="text-[var(--color-accent)] font-semibold">~/</span>
-    <span class="text-[var(--color-text)] font-medium">adam.busha</span>
+    <span class="text-[var(--color-text)] font-medium">adam.bushá</span>
     <span class="text-[var(--color-dim)]">·</span>
     <span class="text-[var(--color-text-muted)] truncate">{crumb}</span>
 
