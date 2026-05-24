@@ -36,8 +36,10 @@ const version = `v${new Date().getFullYear()}.${String(new Date().getMonth() + 1
   <!-- Desktop nav (md+) -->
   <nav class="hidden md:flex items-center justify-between px-12 py-5 font-mono text-[13px] overflow-x-auto">
     <div class="flex items-center gap-2.5">
-      <span class="text-[var(--color-accent)] font-semibold">~/</span>
-      <span class="text-[var(--color-text)] font-medium">adam.bushá</span>
+      <a href="/" class="flex items-center gap-2.5 no-underline hover:no-underline">
+        <span class="text-[var(--color-accent)] font-semibold">~/</span>
+        <span class="text-[var(--color-text)] font-medium">adam.bushá</span>
+      </a>
       <span class="text-[var(--color-dim)]">·</span>
       <span class="text-[var(--color-text-muted)]">{version}</span>
     </div>
@@ -84,8 +86,10 @@ const version = `v${new Date().getFullYear()}.${String(new Date().getMonth() + 1
 
   <!-- Mobile top bar (< md) -->
   <div class="md:hidden flex items-center gap-2.5 px-4 pt-2 pb-3 font-mono text-[12.5px]">
-    <span class="text-[var(--color-accent)] font-semibold">~/</span>
-    <span class="text-[var(--color-text)] font-medium">adam.bushá</span>
+    <a href="/" class="flex items-center gap-2.5 no-underline hover:no-underline">
+      <span class="text-[var(--color-accent)] font-semibold">~/</span>
+      <span class="text-[var(--color-text)] font-medium">adam.bushá</span>
+    </a>
     <span class="text-[var(--color-dim)]">·</span>
     <span class="text-[var(--color-text-muted)] truncate">{crumb}</span>
 

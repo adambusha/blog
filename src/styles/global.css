@@ -199,6 +199,11 @@
     color: var(--color-accent);
   }
 
+  /* Offset for sticky header when jumping to a TOC anchor */
+  .terminal-prose :where(h1, h2, h3, h4, h5, h6) {
+    scroll-margin-top: 88px;
+  }
+
   /* Footer top border */
   .footer-accent {
     @apply relative;

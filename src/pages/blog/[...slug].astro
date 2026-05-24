@@ -10,14 +10,19 @@ export async function getStaticPaths() {
 
   return publishedPosts.map((post, index) => {
     const nextPost = publishedPosts[index - 1];
+    const prevPost = publishedPosts[index + 1];
+    const toSummary = (p: typeof publishedPosts[number]) => ({
+      slug: p.id,
+      title: p.data.title,
+      date: p.data.pubDate,
+    });
 
     return {
       params: { slug: post.id },
       props: {
         post,
-        nextPost: nextPost
-          ? { slug: nextPost.id, title: nextPost.data.title, date: nextPost.data.pubDate }
-          : undefined,
+        nextPost: nextPost ? toSummary(nextPost) : undefined,
+        prevPost: prevPost ? toSummary(prevPost) : undefined,
       },
     };
   });
@@ -26,10 +31,11 @@ export async function getStaticPaths() {
 interface Props {
   post: CollectionEntry<'blog'>;
   nextPost?: { slug: string; title: string; date: Date };
+  prevPost?: { slug: string; title: string; date: Date };
 }
 
-const { post, nextPost } = Astro.props;
-const { Content } = await render(post);
+const { post, nextPost, prevPost } = Astro.props;
+const { Content, headings } = await render(post);
 ---
 
 <PostLayout
@@ -39,6 +45,8 @@ const { Content } = await render(post);
   tags={post.data.tags}
   slug={post.id}
   nextPost={nextPost}
+  prevPost={prevPost}
+  headings={headings}
 >
   <Content />
 </PostLayout>
