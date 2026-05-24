@@ -36,10 +36,47 @@ const projects = [
 ---
 
 <BaseLayout title="Projects — Adam Busha" description="A short list of things I've made.">
-  <Header slot="header" />
+  <Header slot="header" mobilePath="projects" />
   <Footer slot="footer" />
 
-  <div class="px-12 pt-12 pb-16">
+  <!-- Mobile (< md) -->
+  <div class="md:hidden px-5 pt-6 font-sans">
+    <div class="font-mono text-[11.5px] text-[var(--color-text-muted)] mb-2">
+      <span class="text-[var(--color-accent)]">~/</span>projects
+    </div>
+    <h1 class="m-0 text-[32px] font-semibold tracking-[-0.7px]">Things I made</h1>
+    <p class="mt-2 text-[14px] text-[var(--color-text-muted)] leading-[1.55] text-balance">
+      Some public, some I run for myself, some I keep meaning to rewrite.
+    </p>
+
+    <div class="mt-[22px] flex flex-col gap-3">
+      {projects.map((p, i) => (
+        <div class="border border-[var(--color-border)] rounded-lg bg-[var(--color-panel)] p-4">
+          <div class="flex items-baseline gap-2">
+            <span class="font-mono text-[11px] text-[var(--color-dim)]">{String(i + 1).padStart(2, '0')}</span>
+            <span class="text-[18px] font-semibold tracking-[-0.2px] text-[var(--color-text)]">{p.name}</span>
+            <span class="ml-auto font-mono text-[11px] text-[var(--color-dim)]">{p.year}</span>
+          </div>
+          <div class="mt-2 inline-block px-[7px] py-0.5 font-mono text-[9.5px] text-[var(--color-success)] border border-[var(--color-success)] rounded-sm opacity-90 tracking-[0.4px] uppercase">
+            {p.status}
+          </div>
+          <div class="mt-2.5 text-[13.5px] text-[var(--color-text-muted)] leading-[1.55] text-balance">
+            {p.tagline}
+          </div>
+          <div class="mt-2.5 flex gap-1.5 flex-wrap">
+            {p.stack.map((s) => (
+              <span class="inline-block px-[7px] py-0.5 font-mono text-[10px] text-[var(--color-text-muted)] border border-[var(--color-border)] rounded-sm">
+                {s}
+              </span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Desktop (md+) -->
+  <div class="hidden md:block px-12 pt-12 pb-16">
     <div class="font-mono text-xs text-[var(--color-text-muted)] mb-2.5">
       <span class="text-[var(--color-accent)]">~/</span>projects
     </div>
@@ -49,7 +86,6 @@ const projects = [
     </p>
 
     <div class="mt-9 border border-[var(--color-border)] rounded-md bg-[var(--color-panel)] overflow-hidden">
-      <!-- Header row -->
       <div class="grid grid-cols-[32px_200px_1fr_220px_100px] gap-4 px-5 py-3.5 border-b border-[var(--color-border)] bg-[var(--color-panel-alt)] font-mono text-[11px] text-[var(--color-dim)] tracking-wide uppercase">
         <div>#</div>
         <div>Name</div>

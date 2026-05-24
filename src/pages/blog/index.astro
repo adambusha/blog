@@ -15,10 +15,67 @@ const filterTags = ['all', 'engineering', 'css', 'typescript', 'process', 'astro
 ---
 
 <BaseLayout title="Blog — Adam Busha" description="Notes on shipping software.">
-  <Header slot="header" />
+  <Header slot="header" mobilePath="blog" />
   <Footer slot="footer" />
 
-  <div class="px-12 pt-12 pb-16">
+  <!-- Mobile (< md) -->
+  <div class="md:hidden px-5 pt-6 font-sans">
+    <div class="font-mono text-[11.5px] text-[var(--color-text-muted)] mb-2">
+      <span class="text-[var(--color-accent)]">~/</span>blog
+    </div>
+    <h1 class="m-0 text-[32px] font-semibold tracking-[-0.7px]">The blog</h1>
+    <p class="mt-2 text-[14px] text-[var(--color-text-muted)] leading-[1.55] text-balance">
+      Notes on shipping software. {posts.length} posts, most recent first.
+    </p>
+
+    <!-- Search row -->
+    <button
+      type="button"
+      data-palette-open
+      class="mt-[18px] w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-lg border border-[var(--color-border)] bg-[var(--color-panel)] font-mono text-[12.5px] text-[var(--color-text-muted)]"
+    >
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="5" cy="5" r="3.5" />
+        <path d="M8 8l3 3" />
+      </svg>
+      <span>grep posts…</span>
+    </button>
+
+    <!-- Tag scroll rail -->
+    <div class="mt-4 flex gap-1.5 overflow-x-auto pb-1 scrollbar-hidden -mx-5 px-5">
+      {filterTags.map((tag, i) => (
+        <button
+          class:list={[
+            'shrink-0 font-mono text-[11.5px] px-3 py-1.5 rounded-md border',
+            i === 0
+              ? 'border-[var(--color-text)] bg-[var(--color-text)] text-[var(--color-bg)]'
+              : 'border-[var(--color-border)] bg-transparent text-[var(--color-text-muted)]',
+          ]}
+        >{tag}</button>
+      ))}
+    </div>
+
+    {posts.length > 0 ? (
+      <div class="mt-[22px] flex flex-col gap-3">
+        {posts.map((post, i) => (
+          <PostCard
+            title={post.data.title}
+            date={post.data.pubDate}
+            description={post.data.description}
+            tags={post.data.tags}
+            slug={post.id}
+            index={i}
+            readTime={readTime(post.body)}
+          />
+        ))}
+      </div>
+    ) : (
+      <p class="mt-7 font-mono text-sm text-[var(--color-text-muted)]">No posts yet.</p>
+    )}
+  </div>
+
+  <!-- Desktop (md+) -->
+  <div class="hidden md:block px-12 pt-12 pb-16">
     <div class="flex items-baseline justify-between">
       <div>
         <div class="font-mono text-xs text-[var(--color-text-muted)] mb-2.5">
@@ -29,14 +86,18 @@ const filterTags = ['all', 'engineering', 'css', 'typescript', 'process', 'astro
           Notes on shipping software. {posts.length} posts, most recent first. Probably typo-free.
         </p>
       </div>
-      <div class="flex items-center gap-2.5 px-3.5 py-2 border border-[var(--color-border)] rounded bg-[var(--color-panel)] font-mono text-xs text-[var(--color-text-muted)]">
+      <button
+        type="button"
+        data-palette-open
+        class="flex items-center gap-2.5 px-3.5 py-2 border border-[var(--color-border)] rounded bg-[var(--color-panel)] font-mono text-xs text-[var(--color-text-muted)] cursor-pointer hover:border-[var(--color-accent)] transition-colors"
+      >
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5">
           <circle cx="5" cy="5" r="3.5"/>
           <path d="M8 8l3 3"/>
         </svg>
         <span>grep posts…</span>
         <span class="ml-7 text-[var(--color-dim)]" aria-hidden="true">⌘K</span>
-      </div>
+      </button>
     </div>
 
     <div class="mt-7 flex gap-2 flex-wrap">

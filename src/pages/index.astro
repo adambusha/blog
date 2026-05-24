@@ -16,17 +16,106 @@ const daysSince = recentPosts.length > 0
   ? Math.floor((Date.now() - recentPosts[0].data.pubDate.valueOf()) / (1000 * 60 * 60 * 24))
   : 0;
 const lastPush = daysSince === 0 ? 'today' : daysSince === 1 ? '1d ago' : `${daysSince}d ago`;
+const lastPushShort = daysSince === 0 ? 'today' : `${daysSince}d`;
+const yearShort = `'${String(new Date().getFullYear()).slice(2)}`;
 ---
 
 <BaseLayout
   title="Adam Busha"
   description="A blog about software, the slow craft of shipping small things, and whatever else I can't stop thinking about that week."
 >
-  <Header slot="header" />
+  <Header slot="header" mobilePath="index" />
   <Footer slot="footer" />
 
-  <div class="grid grid-cols-[1.05fr_1fr] gap-16 px-12 pt-16 pb-16">
-    <!-- Left column -->
+  <!-- Mobile (< md): single column, hero + prompt card + recent + stats -->
+  <div class="md:hidden px-5 pt-8 font-sans">
+    <div class="font-mono text-[11.5px] text-[var(--color-text-muted)] mb-3.5 tracking-[0.4px]">
+      <span class="text-[var(--color-accent)]">//</span> introducing
+    </div>
+    <h1 class="m-0 text-[38px] leading-[1.04] tracking-[-1.1px] font-semibold text-balance">
+      Hi, I'm Adam.<br />
+      <span class="text-[var(--color-text-muted)]">I write things on the web and</span>{' '}
+      <span class="text-[var(--color-accent)]">about</span>{' '}
+      <span class="text-[var(--color-text-muted)]">the web.</span>
+    </h1>
+    <p class="mt-[22px] text-[15px] leading-[1.6] text-[var(--color-text-muted)] text-balance">
+      A blog about software, the slow craft of shipping small things, and whatever else I can't stop thinking about that week.
+    </p>
+
+    <!-- Prompt card -->
+    <div class="mt-[26px] border border-[var(--color-border)] rounded-lg overflow-hidden bg-[var(--color-panel)] font-mono text-[12px]">
+      <div class="flex items-center gap-1.5 px-3 py-2 border-b border-[var(--color-border)] bg-[var(--color-panel-alt)] text-[var(--color-text-muted)]">
+        <span class="w-2 h-2 rounded-full bg-[#e06c5e] inline-block"></span>
+        <span class="w-2 h-2 rounded-full bg-[#e0c25e] inline-block"></span>
+        <span class="w-2 h-2 rounded-full bg-[#7fc89c] inline-block"></span>
+        <span class="ml-2 text-[10.5px]">~/adam.bushá</span>
+      </div>
+      <div class="px-3.5 py-3 leading-[1.65] text-[var(--color-text-muted)]">
+        <div>
+          <span class="text-[var(--color-accent)]">›</span>{' '}
+          <span class="text-[var(--color-text)]">cat about.md</span>
+        </div>
+        <div>→ typescript, rust, a little go</div>
+        <div>→ typography, perf, the details</div>
+        <div>→ currently: trailmark, lichen</div>
+      </div>
+    </div>
+
+    <!-- Recent posts -->
+    <div class="mt-[30px] mb-2.5 flex items-baseline justify-between font-mono text-[11.5px] text-[var(--color-text-muted)]">
+      <span>
+        <span class="text-[var(--color-accent)]">$</span> ls -t blog/
+      </span>
+      <a href="/blog" class="text-[var(--color-dim)] no-underline">view all →</a>
+    </div>
+    <div class="flex flex-col">
+      {recentPosts.map((post, i) => (
+        <a
+          href={`/blog/${post.id}`}
+          class:list={[
+            'py-4 no-underline',
+            i === 0
+              ? 'border-t border-[var(--color-border)]'
+              : 'border-t border-[var(--color-border-soft)]',
+            i === recentPosts.length - 1 ? 'border-b border-[var(--color-border)]' : '',
+          ]}
+        >
+          <div class="font-mono text-[11px] text-[var(--color-dim)] mb-1.5">
+            {post.data.pubDate.toISOString().slice(0, 10)} · {readTime(post.body)}
+          </div>
+          <div class="text-[16px] font-semibold tracking-[-0.2px] text-[var(--color-text)] mb-1">
+            {post.data.title}
+          </div>
+          <div class="text-[13.5px] text-[var(--color-text-muted)] leading-[1.55] text-balance">
+            {post.data.description}
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <!-- Stats -->
+    <div class="mt-7 grid grid-cols-4 gap-3 font-mono text-[10.5px]">
+      <div>
+        <div class="text-[var(--color-dim)] mb-1">POSTS</div>
+        <div class="text-[var(--color-text)] text-[15px]">{publishedPosts.length}</div>
+      </div>
+      <div>
+        <div class="text-[var(--color-dim)] mb-1">PROJ</div>
+        <div class="text-[var(--color-text)] text-[15px]">4</div>
+      </div>
+      <div>
+        <div class="text-[var(--color-dim)] mb-1">PUSH</div>
+        <div class="text-[var(--color-text)] text-[15px]">{lastPushShort}</div>
+      </div>
+      <div>
+        <div class="text-[var(--color-dim)] mb-1">YEAR</div>
+        <div class="text-[var(--color-text)] text-[15px]">{yearShort}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Desktop (md+): existing two-column layout -->
+  <div class="hidden md:grid grid-cols-[1.05fr_1fr] gap-16 px-12 pt-16 pb-16">
     <div>
       <div class="font-mono text-xs text-[var(--color-text-muted)] mb-4 tracking-wide">
         <span class="text-[var(--color-accent)]">// </span>introducing
@@ -76,11 +165,10 @@ const lastPush = daysSince === 0 ? 'today' : daysSince === 1 ? '1d ago' : `${day
       </div>
     </div>
 
-    <!-- Right column -->
     <div class="pt-1">
       <TerminalBlock
         command="cat about.md | head -8"
-        output={"# adam.busha\n> software, the web, and slow craft.\n\n  → typescript, rust, a little go\n  → typography, perf budgets, details\n  → side projects i rarely finish\n  → currently: trailmark, lichen"}
+        output={"# adam.bushá\n> software, the web, and slow craft.\n\n  → typescript, rust, a little go\n  → typography, perf budgets, details\n  → side projects i rarely finish\n  → currently: trailmark, lichen"}
       />
 
       <div class="mt-7">

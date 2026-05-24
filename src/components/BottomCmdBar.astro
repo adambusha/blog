@@ -1,0 +1,43 @@
+---
+const pathname = Astro.url.pathname;
+
+const items = [
+  { id: 'index', label: 'cd ~', glyph: '~', href: '/' },
+  { id: 'blog', label: 'cd blog', glyph: '✎', href: '/blog' },
+  { id: 'projects', label: 'ls -t', glyph: '◉', href: '/projects' },
+  { id: 'about', label: 'whoami', glyph: '?', href: '/about' },
+];
+
+function isCurrent(href: string): boolean {
+  if (href === '/') return pathname === '/';
+  return pathname === href || pathname.startsWith(href + '/');
+}
+---
+
+<nav
+  aria-label="Mobile navigation"
+  class="md:hidden fixed left-3 right-3 bottom-[18px] z-40 cmd-bar-glass border border-[var(--color-border)] rounded-[14px] grid grid-cols-4 gap-1 p-1.5 font-mono"
+>
+  {items.map((it) => {
+    const active = isCurrent(it.href);
+    return (
+      <a
+        href={it.href}
+        class:list={[
+          'flex flex-col items-center justify-center gap-[3px] h-[50px] rounded-[10px] no-underline px-0',
+          active
+            ? 'bg-[var(--color-text)] text-[var(--color-bg)]'
+            : 'bg-transparent text-[var(--color-text-muted)]',
+        ]}
+      >
+        <span
+          class:list={[
+            'text-[14px] leading-none',
+            active ? 'text-[var(--color-accent)]' : 'text-[var(--color-text-muted)]',
+          ]}
+        >{it.glyph}</span>
+        <span class="text-[10.5px] tracking-[0.2px] leading-none">{it.label}</span>
+      </a>
+    );
+  })}
+</nav>

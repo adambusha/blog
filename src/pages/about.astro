@@ -5,11 +5,75 @@ import Footer from '../components/Footer.astro';
 ---
 
 <BaseLayout title="About — Adam Busha" description="Hi, I'm Adam. Software, the web, and slow craft.">
-  <Header slot="header" />
+  <Header slot="header" mobilePath="about" />
   <Footer slot="footer" />
 
-  <div class="grid grid-cols-[1fr_0.85fr] gap-16 px-12 pt-16 pb-16">
-    <!-- Left column -->
+  <!-- Mobile (< md) -->
+  <div class="md:hidden px-5 pt-7 font-sans">
+    <div class="font-mono text-[11.5px] text-[var(--color-text-muted)] mb-3.5">
+      <span class="text-[var(--color-accent)]">$</span> whoami
+    </div>
+    <h1 class="m-0 text-[36px] font-semibold tracking-[-1.1px] leading-[1.05]">
+      About,<br />at the moment.
+    </h1>
+    <div class="mt-[22px] text-[15.5px] leading-[1.65] text-[var(--color-text-muted)] space-y-4">
+      <p class="m-0 text-balance">
+        Hi, I'm Adam. I write code for the web — mostly TypeScript and Rust these days, with a soft spot for Go on the server.
+      </p>
+      <p class="m-0 text-balance">
+        I work on shipping small things that try to feel good to use. I care about typography, performance budgets, and the kind of details nobody is asked to notice.
+      </p>
+      <p class="m-0 text-balance">
+        Outside of work I read a lot, run slowly, and tinker with side projects I rarely finish. This blog is where I put down whatever I've been thinking about lately — half notebook, half public draft.
+      </p>
+    </div>
+
+    <!-- uname -a -->
+    <div class="mt-[26px] px-[18px] py-4 border border-[var(--color-border)] rounded-lg bg-[var(--color-panel)]">
+      <div class="font-mono text-[10.5px] text-[var(--color-dim)] mb-2.5 tracking-[0.4px]">$ uname -a</div>
+      <div class="font-mono text-[12.5px] text-[var(--color-text-muted)] leading-[1.85]">
+        <div><span class="text-[var(--color-dim)]">kernel&nbsp;</span><span class="text-[var(--color-text)]">adam-bushá 33y</span></div>
+        <div><span class="text-[var(--color-dim)]">arch&nbsp;&nbsp;&nbsp;</span><span class="text-[var(--color-text)]">x86_64 brooklyn</span></div>
+        <div><span class="text-[var(--color-dim)]">shell&nbsp;&nbsp;</span><span class="text-[var(--color-text)]">zsh, slowly</span></div>
+        <div><span class="text-[var(--color-dim)]">now&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="text-[var(--color-text)]">shipping trailmark v3</span></div>
+      </div>
+    </div>
+
+    <!-- history | tail -->
+    <div class="mt-6 font-mono text-[10.5px] text-[var(--color-dim)] mb-2.5 tracking-[0.4px]">$ history | tail</div>
+    <div class="font-mono text-[12.5px] text-[var(--color-text-muted)] leading-[1.9]">
+      <div><span class="text-[var(--color-dim)]">2026&nbsp;</span>writing more, shipping less</div>
+      <div><span class="text-[var(--color-dim)]">2025&nbsp;</span>moved to brooklyn; learned go</div>
+      <div>
+        <span class="text-[var(--color-dim)]">2024&nbsp;</span>started{' '}
+        <a href="/projects" class="text-[var(--color-accent)] no-underline">trailmark</a>
+      </div>
+      <div><span class="text-[var(--color-dim)]">2023&nbsp;</span>went freelance; bought a synth</div>
+      <div><span class="text-[var(--color-dim)]">2022&nbsp;</span>finally read SICP. didn't finish.</div>
+    </div>
+
+    <!-- /etc/contact -->
+    <div class="mt-6 px-[18px] py-4 border border-[var(--color-border)] rounded-lg bg-[var(--color-panel)]">
+      <div class="font-mono text-[10.5px] text-[var(--color-dim)] mb-2.5 tracking-[0.4px]">$ cat /etc/contact</div>
+      <div class="font-mono text-[12.5px] leading-[1.85]">
+        <div>
+          <span class="text-[var(--color-dim)]">email&nbsp;&nbsp;&nbsp;</span>
+          <a href="mailto:hi@adambusha.com" class="text-[var(--color-accent)] no-underline">hi@adambusha.com</a>
+        </div>
+        <div>
+          <span class="text-[var(--color-dim)]">github&nbsp;&nbsp;</span>
+          <a href="https://github.com/adambusha" class="text-[var(--color-accent)] no-underline">adambusha</a>
+        </div>
+        <div>
+          <span class="text-[var(--color-dim)]">rss&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <a href="/rss.xml" class="text-[var(--color-accent)] no-underline">/feed.xml</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Desktop (md+) -->
+  <div class="hidden md:grid grid-cols-[1fr_0.85fr] gap-16 px-12 pt-16 pb-16">
     <div class="max-w-[580px]">
       <div class="font-mono text-xs text-[var(--color-text-muted)] mb-4">
         <span class="text-[var(--color-accent)]">$</span> whoami
@@ -50,13 +114,12 @@ import Footer from '../components/Footer.astro';
       </div>
     </div>
 
-    <!-- Right column -->
     <div>
       <div class="font-mono text-[11px] text-[var(--color-dim)] mb-3.5 tracking-wide">
         $ uname -a
       </div>
       <div class="border border-[var(--color-border)] rounded-md p-5 bg-[var(--color-panel)] font-mono text-[13px] leading-[1.7] text-[var(--color-text-muted)]">
-        <div><span class="text-[var(--color-dim)]">kernel&nbsp;</span><span class="text-[var(--color-text)]">adam-busha</span></div>
+        <div><span class="text-[var(--color-dim)]">kernel&nbsp;</span><span class="text-[var(--color-text)]">adam-bushá</span></div>
         <div><span class="text-[var(--color-dim)]">arch&nbsp;&nbsp; </span><span class="text-[var(--color-text)]">x86_64 brooklyn</span></div>
         <div><span class="text-[var(--color-dim)]">shell&nbsp; </span><span class="text-[var(--color-text)]">zsh, slowly</span></div>
         <div><span class="text-[var(--color-dim)]">now&nbsp;&nbsp;&nbsp; </span><span class="text-[var(--color-text)]">writing more, shipping less</span></div>
