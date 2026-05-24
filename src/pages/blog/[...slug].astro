@@ -1,8 +1,6 @@
 ---
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 import PostLayout from '../../layouts/PostLayout.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
 
 export async function getStaticPaths() {
   const allPosts = await getCollection('blog');
@@ -42,8 +40,5 @@ const { Content } = await render(post);
   slug={post.id}
   nextPost={nextPost}
 >
-  <Header slot="header" />
-  <Footer slot="footer" />
-
   <Content />
 </PostLayout>

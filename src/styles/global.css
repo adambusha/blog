@@ -5,6 +5,9 @@
 @import '@fontsource/inter/700.css';
 @import '@fontsource/jetbrains-mono/400.css';
 @import '@fontsource/jetbrains-mono/500.css';
+@import '@fontsource/jetbrains-mono/600.css';
+@import '@fontsource/source-serif-4/400.css';
+@import '@fontsource/source-serif-4/500.css';
 
 /* Tailwind v4 */
 @import 'tailwindcss';
@@ -18,6 +21,7 @@
   --color-accent: oklch(0.62 0.16 38);
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
+  --font-serif: 'Source Serif 4', 'Newsreader', Georgia, serif;
 }
 
 /* CSS Custom Properties */
@@ -33,11 +37,16 @@
     --color-dim: #9a9692;
     --color-accent: oklch(0.62 0.16 38);
     --color-accent-hover: oklch(0.55 0.16 38);
+    --color-accent-soft: oklch(0.92 0.08 38);
+    --color-accent-bg: oklch(0.96 0.04 38);
     --color-border: #e5e3df;
     --color-border-soft: #eeece7;
     --color-code-bg: #f3f3f1;
     --color-code-text: #15171a;
     --color-success: #3a7d5d;
+    --cmd-bar-bg: rgba(255, 255, 255, 0.82);
+    --cmd-bar-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    --palette-backdrop: rgba(20, 20, 20, 0.4);
   }
 
   .dark {
@@ -51,11 +60,16 @@
     --color-dim: #5e5e5a;
     --color-accent: oklch(0.75 0.16 38);
     --color-accent-hover: oklch(0.82 0.16 38);
+    --color-accent-soft: oklch(0.30 0.08 38);
+    --color-accent-bg: oklch(0.20 0.04 38);
     --color-border: #23252a;
     --color-border-soft: #1a1c20;
     --color-code-bg: #141517;
     --color-code-text: #e8e6e0;
     --color-success: #7fc89c;
+    --cmd-bar-bg: rgba(20, 21, 23, 0.78);
+    --cmd-bar-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+    --palette-backdrop: rgba(0, 0, 0, 0.55);
   }
 
   html {
@@ -104,6 +118,63 @@
 
   ::selection {
     @apply bg-[var(--color-accent)] text-white;
+  }
+}
+
+@layer utilities {
+  .font-serif {
+    font-family: var(--font-serif);
+  }
+
+  /* Mobile cmd-bar glass */
+  .cmd-bar-glass {
+    background: var(--cmd-bar-bg);
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+    backdrop-filter: blur(14px) saturate(160%);
+    box-shadow: var(--cmd-bar-shadow);
+  }
+
+  /* Palette backdrop blur */
+  .palette-backdrop {
+    background: var(--palette-backdrop);
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+  }
+
+  /* Hide horizontal scrollbar (for tag rail) */
+  .scrollbar-hidden {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Mobile reading view — Source Serif 4 body + tighter h2 */
+  @media (max-width: 767px) {
+    .terminal-prose {
+      font-family: var(--font-serif);
+      font-size: 17px;
+      line-height: 1.65;
+    }
+    .terminal-prose :where(h1) {
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: 32px;
+      letter-spacing: -0.5px;
+      line-height: 1.12;
+    }
+  }
+}
+
+@keyframes tmSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
